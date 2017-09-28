@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/dacot11/statistics/distance"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -56,12 +56,12 @@ func processMinkowski() {
 	fmt.Println("Enter H:")
 	rawH := ""
 	fmt.Scanln(&rawH)
-	h,_ := strconv.ParseFloat(rawH, 64)
+	h, _ := strconv.ParseFloat(rawH, 64)
 
 	fmt.Println("Enter N:")
 	rawN := ""
 	fmt.Scanln(&rawN)
-	n,_ := strconv.ParseInt(rawN, 0, 4)
+	n, _ := strconv.ParseInt(rawN, 0, 4)
 
 	fmt.Println("Enter first set (comma separated values):")
 	setData := ""
@@ -81,7 +81,7 @@ func processSupremum() {
 	fmt.Println("Enter N:")
 	rawN := ""
 	fmt.Scanln(&rawN)
-	n,_ := strconv.ParseInt(rawN, 0, 4)
+	n, _ := strconv.ParseInt(rawN, 0, 4)
 
 	fmt.Println("Enter first set (comma separated values):")
 	setData := ""
@@ -106,7 +106,6 @@ func buildFloatSlice(rawData string) []float64 {
 		floatItem, _ := strconv.ParseFloat(item, 64)
 		floatSlice = append(floatSlice, floatItem)
 	}
-
 
 	return floatSlice
 }
