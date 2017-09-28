@@ -1,0 +1,1 @@
+Statistics project provides tools for doing Distance analysis and data normalization
