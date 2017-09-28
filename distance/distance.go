@@ -2,7 +2,7 @@ package distance
 
 import "math"
 
-func MinkowskiDistance(h float64, n int, firstObject []int, secondObject []int) float64 {
+func Minkowski(h float64, n int, firstObject []float64, secondObject []float64) float64 {
 
 	var sum float64
 
@@ -13,7 +13,7 @@ func MinkowskiDistance(h float64, n int, firstObject []int, secondObject []int) 
 	return math.Pow(sum, 1/h)
 }
 
-func SupremumDistance(n int, firstObject []int, secondObject []int) float64 {
+func Supremum(n int, firstObject []float64, secondObject []float64) float64 {
 
 	var maxDistance float64 = 0
 
@@ -28,7 +28,7 @@ func SupremumDistance(n int, firstObject []int, secondObject []int) float64 {
 	return maxDistance
 }
 
-func CosineDistance(n int, firstObject []float64, secondObject []float64) float64 {
+func Cosine(n int, firstObject []float64, secondObject []float64) float64 {
 
 	var product float64 = cartesianProduct(n, firstObject, secondObject)
 

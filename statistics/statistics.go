@@ -3,46 +3,120 @@ package main
 import (
 	"fmt"
 	"github.com/dacot11/statistics/distance"
-	"github.com/dacot11/statistics/normalization"
+	"strings"
+	"strconv"
 )
 
 func main() {
 
-	fmt.Printf("Minkoski Distance with h = 1 is: %f \n", distance.MinkowskiDistance(1, 4, []int{22, 1, 42, 10}, []int{20, 0, 36, 8}))
+	var option string = ""
 
-	fmt.Printf("Minkoski Distance with h = 2 is: %f \n", distance.MinkowskiDistance(2, 4, []int{22, 1, 42, 10}, []int{20, 0, 36, 8}))
+	option = requestStatisticsOption(option)
 
-	fmt.Printf("Minkoski Distance with h = 3 is: %f \n", distance.MinkowskiDistance(3, 4, []int{22, 1, 42, 10}, []int{20, 0, 36, 8}))
+	if option == "1" {
+		option = requestDistanceOption(option)
+	} else if option == "2" {
+		option = requestNormalizationOption(option)
+	} else {
+		fmt.Println("Invalid option")
+	}
+}
 
-	fmt.Printf("Supremum Distance is: %f \n", distance.SupremumDistance(4, []int{22, 1, 42, 10}, []int{20, 0, 36, 8}))
+func requestStatisticsOption(option string) string {
 
-	// Cosine distance
-	var x []float64 = []float64{1.4, 1.6}
-	var y []float64 = []float64{1.5, 1.7}
-	fmt.Printf("Cosine Distance between %v and %v is: %f \n", x, y, distance.CosineDistance(2, x, y))
+	fmt.Println("Please select an option:")
+	fmt.Println("1) Distance")
+	fmt.Println("2) Normalization")
 
-	var y1 []float64 = []float64{2, 1.9}
-	fmt.Printf("Cosine Distance between %v and %v is: %f \n", x, y1, distance.CosineDistance(2, x, y1))
+	fmt.Scanln(&option)
 
-	var y2 []float64 = []float64{1.6, 1.8}
-	fmt.Printf("Cosine Distance between %v and %v is: %f \n", x, y2, distance.CosineDistance(2, x, y2))
+	return option
+}
 
-	var y3 []float64 = []float64{1.2, 1.5}
-	fmt.Printf("Cosine Distance between %v and %v is: %f \n", x, y3, distance.CosineDistance(2, x, y3))
+func requestDistanceOption(option string) string {
 
-	var y4 []float64 = []float64{1.5, 1}
-	fmt.Printf("Cosine Distance between %v and %v is: %f \n", x, y4, distance.CosineDistance(2, x, y4))
+	fmt.Println("1) Minkowski")
+	fmt.Println("2) Supremum")
 
-	// Normalization
-	var set []float64 = []float64{13, 15, 16, 16, 19, 20, 20, 21, 22, 22, 25, 25, 25, 25, 30, 33, 33, 35, 35, 35, 35, 36, 40, 45, 46, 52, 70}
-	var value float64 = 35
+	fmt.Scanln(&option)
 
-	// Min-max
-	var newMin float64 = 0.0
-	var newMax float64 = 1.0
-	fmt.Printf("Min-max nomalization for value %f in %v with new min %f and new max %f is: %f \n", value, set, newMin, newMax, normalization.Minmax(value, set, newMin, newMax))
+	if option == "1" {
+		processMinkowski()
+	} else if option == "2" {
+		processSupremum()
+	} else {
+		fmt.Println("Invalid option")
+	}
 
-	// Z-score
-	var sd = 12.94
-	fmt.Printf("Z-score nomalization for value %f in %v with SD %f is: %f \n", value, set, sd, normalization.Zscore(value, set, sd))
+	return option
+}
+
+func processMinkowski() {
+
+	fmt.Println("Enter H:")
+	rawH := ""
+	fmt.Scanln(&rawH)
+	h,_ := strconv.ParseFloat(rawH, 64)
+
+	fmt.Println("Enter N:")
+	rawN := ""
+	fmt.Scanln(&rawN)
+	n,_ := strconv.ParseInt(rawN, 0, 4)
+
+	fmt.Println("Enter first set (comma separated values):")
+	setData := ""
+	fmt.Scanln(&setData)
+	set1 := buildFloatSlice(setData)
+
+	fmt.Println("Enter first set (comma separated values):")
+	fmt.Scanln(&setData)
+	set2 := buildFloatSlice(setData)
+
+	fmt.Printf("Minkoski Distance with h = %f between %v and %v is: %f \n", h, set1, set2, distance.Minkowski(h, int(n), set1, set2))
+
+}
+
+func processSupremum() {
+
+	fmt.Println("Enter N:")
+	rawN := ""
+	fmt.Scanln(&rawN)
+	n,_ := strconv.ParseInt(rawN, 0, 4)
+
+	fmt.Println("Enter first set (comma separated values):")
+	setData := ""
+	fmt.Scanln(&setData)
+	set1 := buildFloatSlice(setData)
+
+	fmt.Println("Enter first set (comma separated values):")
+	fmt.Scanln(&setData)
+	set2 := buildFloatSlice(setData)
+
+	fmt.Printf("Supremum Distance between %v and %v is: %f \n", set1, set2, distance.Supremum(int(n), set1, set2))
+
+}
+
+func buildFloatSlice(rawData string) []float64 {
+
+	floatSlice := []float64{}
+
+	stringSlice := strings.Split(rawData, ",")
+
+	for _, item := range stringSlice {
+		floatItem, _ := strconv.ParseFloat(item, 64)
+		floatSlice = append(floatSlice, floatItem)
+	}
+
+
+	return floatSlice
+}
+
+func requestNormalizationOption(option string) string {
+
+	fmt.Println("1) Min-max")
+	fmt.Println("2) Z-socre")
+
+	fmt.Scanln(&option)
+
+	return option
 }
