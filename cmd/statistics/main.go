@@ -9,47 +9,46 @@ import (
 )
 
 func main() {
+	option := requestStatisticsOption()
 
-	var option string
-
-	option = requestStatisticsOption(option)
-
-	if option == "1" {
-		option = requestDistanceOption(option)
-	} else if option == "2" {
-		option = requestNormalizationOption(option)
-	} else {
+	switch option {
+	case "1":
+		calculateDistance()
+	case "2":
+		normalize()
+	default:
 		fmt.Println("Invalid option")
 	}
 }
 
-func requestStatisticsOption(option string) string {
+func requestStatisticsOption() string {
 
 	fmt.Println("Please select an option:")
 	fmt.Println("1) Distance")
 	fmt.Println("2) Normalization")
 
+	var option string
 	fmt.Scanln(&option)
 
 	return option
 }
 
-func requestDistanceOption(option string) string {
+func calculateDistance() {
 
 	fmt.Println("1) Minkowski")
 	fmt.Println("2) Supremum")
 
+	var option string
 	fmt.Scanln(&option)
 
-	if option == "1" {
+	switch option {
+	case "1":
 		processMinkowski()
-	} else if option == "2" {
+	case "2":
 		processSupremum()
-	} else {
+	default:
 		fmt.Println("Invalid option")
 	}
-
-	return option
 }
 
 func processMinkowski() {
@@ -111,12 +110,13 @@ func buildFloatSlice(rawData string) []float64 {
 	return floatSlice
 }
 
-func requestNormalizationOption(option string) string {
+func normalize() {
 
 	fmt.Println("1) Min-max")
 	fmt.Println("2) Z-socre")
 
+	var option string
 	fmt.Scanln(&option)
 
-	return option
+	fmt.Println("TODO")
 }
