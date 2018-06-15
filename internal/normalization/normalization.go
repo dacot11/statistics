@@ -1,11 +1,11 @@
 package normalization
 
-import "github.com/dacot11/statistics/sliceutil"
+import "github.com/dacot11/statistics/internal/common/math"
 
 func Minmax(value float64, set []float64, newMin float64, newMax float64) float64 {
 
-	var min float64 = sliceutil.Min(set)
-	var max float64 = sliceutil.Max(set)
+	var min float64 = math.Min(set)
+	var max float64 = math.Max(set)
 	var newValue float64
 
 	newValue = (((value - min) / (max - min)) * (newMax - newMin)) + newMin
@@ -15,5 +15,5 @@ func Minmax(value float64, set []float64, newMin float64, newMax float64) float6
 
 func Zscore(value float64, set []float64, standardDeviation float64) float64 {
 
-	return (value - sliceutil.Mean(set)) / standardDeviation
+	return (value - math.Mean(set)) / standardDeviation
 }

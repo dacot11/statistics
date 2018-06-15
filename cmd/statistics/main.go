@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/dacot11/statistics/distance"
 	"strconv"
 	"strings"
+
+	"github.com/dacot11/statistics/internal/distance"
 )
 
 func main() {
 
-	var option string = ""
+	var option string
 
 	option = requestStatisticsOption(option)
 
